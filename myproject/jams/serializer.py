@@ -7,33 +7,32 @@ from .models import Genre
 from django.contrib.auth.models import User, Group
 
 class AlbumSerializer(serializers.ModelSerializer):
-    # album_genre = GenreSerializer(many=True, required=False)
     class Meta:
         model = Album
-        fields = ['name', 'publish_date', 'cover_art', 'album_genre']
+        fields = ['id', 'artist', 'name', 'publish_date', 'cover_art', 'album_genre']
 
 class SongSerializer(serializers.ModelSerializer):
-    album = AlbumSerializer(many=True, required=False)
+    # album = AlbumSerializer(many=True, required=False)
     class Meta:
         model = Song
-        fields = ['name', 'duration', 'album']
+        fields = ['id','name', 'duration', 'album']
 
 class ArtistSerializer(serializers.ModelSerializer):
-    songs = SongSerializer(many=True, required=False)
+    # songs = SongSerializer(many=True, required=False)
     class Meta:
         model = Artist
-        fields = ['name', 'biography', 'img', 'songs']
+        fields = ['id','name', 'biography', 'img', 'songs']
 
 class PlaylistSerializer(serializers.ModelSerializer):
     songs = SongSerializer(many=True, required=False)
     class Meta:
         model = Playlist
-        fields = ['name', 'songs']
+        fields = ['id','name', 'songs']
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ['name']
+        fields = ['id','name']
 
 
 

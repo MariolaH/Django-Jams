@@ -40,10 +40,12 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
+    # http_method_names = ['post', 'patch', 'put', 'delete']
 
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+    # http_method_names = ['post', 'patch', 'put', 'delete']
 
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
