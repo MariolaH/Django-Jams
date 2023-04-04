@@ -20,6 +20,8 @@ from rest_framework import routers
 from jams import views
 
 router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 router.register(r'artist', views.ArtistViewSet)
 router.register(r'playlist', views.PlaylistViewSet)
 router.register(r'song', views.SongViewSet)
