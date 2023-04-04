@@ -23,7 +23,8 @@ router = routers.DefaultRouter()
 router.register(r'artist', views.ArtistViewSet)
 router.register(r'playlist', views.PlaylistViewSet)
 router.register(r'song', views.SongViewSet)
-# router.register(r'groups', views.GroupViewSet)
+router.register(r'album', views.AlbumViewSet)
+router.register(r'genre', views.GenreViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
