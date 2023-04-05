@@ -5,7 +5,7 @@ class Artist(models.Model):
     name = models.CharField(max_length=500, null=True)
     biography = models.TextField(blank=True)
     img = models.URLField(max_length=200, blank=True)
-    songs = models.ManyToManyField('Song')
+    # songs = models.ManyToManyField('Song')
     def __str__(self):
         return self.name
 

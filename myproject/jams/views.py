@@ -8,9 +8,7 @@ from .models import Playlist
 from .models import Song
 from .models import Album
 from .models import Genre
-from .serializer import UserSerializer, GroupSerializer, ArtistSerializer, PlaylistSerializer, SongSerializer,AlbumSerializer, GenreSerializer
-
-
+from .serializer import *
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -31,21 +29,36 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
-    serializer_class = ArtistSerializer
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            return ArtistWriteSerializer
+        return ArtistReadSerializer
 
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
-    serializer_class = PlaylistSerializer
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            return PlaylistWriteSerializer
+        return PlaylistReadSerializer
+
 
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
-    serializer_class = SongSerializer
-    # http_method_names = ['post', 'patch', 'put', 'delete']
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            return SongWriteSerializer
+        return SongReadSerializer
 
 class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all()
-    serializer_class = AlbumSerializer
-    # http_method_names = ['post', 'patch', 'put', 'delete']
+    
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update", "destroy"]:
+            return AlbumWriteSerializer
+        return AlbumReadSerializer
 
 class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
