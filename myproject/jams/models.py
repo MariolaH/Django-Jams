@@ -28,9 +28,7 @@ class Album(models.Model):
     cover_art = models.URLField(max_length=200, null=True)
     album_genre = models.ManyToManyField('Genre')
     artist = models.ManyToManyField('Artist')
-    # artist = models.ForeignKey('Artist', on_delete=models.PROTECT)
-    def __str__(self):
-        return self.artist
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=500, null=False)
