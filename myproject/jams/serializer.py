@@ -21,8 +21,13 @@ class ArtistWriteSerializer(serializers.ModelSerializer):
         model = Artist
         fields = ['id','name', 'biography', 'img']
 
+class ArtistNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Artist
+        fields = ['id','name']
+
 class AlbumReadSerializer(serializers.ModelSerializer):
-    artist = ArtistReadSerializer(many=True)
+    artist = ArtistNameSerializer(many=True)
     album_genre = GenreSerializer(many=True)
     class Meta:
         model = Album
