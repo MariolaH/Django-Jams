@@ -45,7 +45,6 @@ class SongReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         fields = ['id','name', 'duration', 'album']
-
 class SongWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
@@ -53,6 +52,8 @@ class SongWriteSerializer(serializers.ModelSerializer):
 
 class SongNameSerializer(serializers.ModelSerializer):
     artists = serializers.SerializerMethodField()
+        # SerialzerMethodField = gets its value by calling a method on the serializer class it is attached to
+        # artists is what is storing the id and name of the artist
 
     class Meta:
         model = Song
@@ -60,11 +61,18 @@ class SongNameSerializer(serializers.ModelSerializer):
 
     # https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield
     def get_artists(self, obj):
+
         album = Album.objects.get(pk=obj.album_id)
+            # Retrieving a single object with get() - getting album primary key
         artists = album.artist.all()
+            # through the album PK getting all the artist fields
+            # artists is = going through the albums model (which has a m2m relationship with artist)to 
+            # artist(gets all the fields)
+ 
         # shorthand to create a list with a loop inside of it
         # https://stackoverflow.com/a/67384477
         return [{ "id": a.id, "name": a.name } for a in artists]
+            # returning only the id and name of the artist
 
 
 class PlaylistReadSerializer(serializers.ModelSerializer):
