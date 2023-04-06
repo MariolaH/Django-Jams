@@ -39,6 +39,7 @@ class AlbumWriteSerializer(serializers.ModelSerializer):
         model = Album
         fields = ['id', 'artist', 'name', 'publish_date', 'cover_art', 'album_genre']
 
+
 class SongReadSerializer(serializers.ModelSerializer):
     album = AlbumReadSerializer()
     class Meta:
@@ -50,9 +51,24 @@ class SongWriteSerializer(serializers.ModelSerializer):
         model = Song
         fields = ['id','name', 'duration', 'album']
 
+class SongNameSerializer(serializers.ModelSerializer):
+    artists = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Song
+        fields = ['id', 'name', 'artists']
+
+    # https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield
+    def get_artists(self, obj):
+        album = Album.objects.get(pk=obj.album_id)
+        artists = album.artist.all()
+        # shorthand to create a list with a loop inside of it
+        # https://stackoverflow.com/a/67384477
+        return [{ "id": a.id, "name": a.name } for a in artists]
+
 
 class PlaylistReadSerializer(serializers.ModelSerializer):
-    songs = SongReadSerializer(many=True, required=False)
+    songs = SongNameSerializer(many=True, required=False)
     class Meta:
         model = Playlist
         fields = ['id','name', 'songs']
